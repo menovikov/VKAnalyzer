@@ -23,6 +23,19 @@ namespace VKAnalyzer
         public MainWindow()
         {
             InitializeComponent();
+            Auth();
         }
+
+        private void Auth()
+        {
+            AuthWindow window = new AuthWindow();
+            window.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ListOfGroups.Text = Repository.GetGroups();
+        }
+
     }
 }

@@ -1,0 +1,8 @@
+﻿<Window x:Class="VKAnalyzer.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AuthWindow" Height="416" Width="672" Topmost="True">
+    <Grid>
+        <WebBrowser Name="AuthBrowser" LoadCompleted="AuthBrowser_LoadCompleted" />
+    </Grid>
+</Window>
