@@ -29,8 +29,9 @@ namespace VKAnalyzer
         {
             
             var webClient = new WebClient();
-            string result = webClient.DownloadString(Query("groups.get", "50259434", AuthWindow.access_token));
-            return result;//JsonConvert.DeserializeObject<List<string>>(result);       
+            string result = webClient.DownloadString(Query("groups.get", AuthWindow.user_id, AuthWindow.access_token));
+            var a = JsonConvert.DeserializeObject<Dictionary<string,string>>(result);    
+            return result;    
         }
 
         static string Query(string method, string parameters, string accesstoken)
