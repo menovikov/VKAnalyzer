@@ -48,7 +48,7 @@ namespace VKAnalyzer
 
         internal static List<Dictionary<string, string>> Groped_groups()
         {
-            string[] topics = File.ReadAllLines("Files/RESULT(formated_urls)T.csv");
+            string[] topics = File.ReadAllLines("../../Files/RESULT(formated_urls)T.csv");
             List<Dictionary<string, string>> themes = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>();
             foreach (var topic in topics)
             {

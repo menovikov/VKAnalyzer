@@ -34,8 +34,13 @@ namespace VKAnalyzer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ListOfGroups.Text = Repository.GetGroups();
+            ListOfGroups.Text = Repository.GetGroups().Count().ToString();
         }
 
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+            ListBox.ItemsSource = Repository.Compare_groups();
+            int test1 = 10;
+        }
     }
 }
