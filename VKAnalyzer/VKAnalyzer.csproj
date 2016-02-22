@@ -60,7 +60,6 @@
     <Compile Include="AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Person.cs" />
     <Compile Include="Repository.cs" />
     <Page Include="AuthWindow.xaml">
       <SubType>Designer</SubType>
@@ -97,6 +96,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Files\RESULT%28formated_urls%29T.csv" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
