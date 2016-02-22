@@ -60,7 +60,6 @@
     <Compile Include="AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Person.cs" />
     <Compile Include="Repository.cs" />
     <Page Include="AuthWindow.xaml">
       <SubType>Designer</SubType>
