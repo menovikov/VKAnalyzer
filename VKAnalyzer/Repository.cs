@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace VKAnalyzer
@@ -25,13 +26,19 @@ namespace VKAnalyzer
             
         };
 
-        public static string GetGroups()
+        public static List<string> GetGroups()
         {
-            
             var webClient = new WebClient();
-            string result = webClient.DownloadString(Query("groups.get", AuthWindow.user_id, AuthWindow.access_token));
-            // var a = JsonConvert.DeserializeObject<Dictionary<string,string>>(result);    
-            return result;    
+            string jsonString = webClient.DownloadString(Query("groups.get", AuthWindow.user_id, AuthWindow.access_token));
+            JObject res = JObject.Parse(jsonString);
+            IList<JToken> results = res["response"].Children().ToList(); // get JSON result objects into a list
+            List<string> searchResults = new List<string>();
+            foreach (JToken result1 in results)
+            {
+                string searchResult = JsonConvert.DeserializeObject<string>(result1.ToString());
+                searchResults.Add(searchResult.ToString());
+            }
+            return searchResults;
         }
 
         static string Query(string method, string parameters, string accesstoken)
