@@ -26,6 +26,10 @@ namespace VKAnalyzer
         {
             
         };
+        static string Query(string method, string parameters, string accesstoken)
+        {
+            return string.Format("https://api.vk.com/method/{0}?{1}&access_token={2}", method, parameters, accesstoken);
+        }
 
         public static List<string> GetGroups()
         {
@@ -44,7 +48,7 @@ namespace VKAnalyzer
 
         internal static List<Dictionary<string, string>> Groped_groups()
         {
-            string[] topics = File.ReadAllLines("../../../../RESULT(formated_urls)T.csv");
+            string[] topics = File.ReadAllLines("Files/RESULT(formated_urls)T.csv");
             List<Dictionary<string, string>> themes = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>();
             foreach (var topic in topics)
             {
@@ -59,10 +63,34 @@ namespace VKAnalyzer
             }
             return themes;
         }
-
-        static string Query(string method, string parameters, string accesstoken)
+        
+        public static List<string> Compare_groups()
         {
-            return string.Format("https://api.vk.com/method/{0}?{1}&access_token={2}", method, parameters, accesstoken);
+            var users_gr = Repository.GetGroups();
+            var given_gr = Repository.Groped_groups();
+            // var out_dict = new Dictionary<int, string>();
+            var out_list = new List<string>();
+
+            foreach (Dictionary<string, string> topic in given_gr)
+            {
+                int counter = 0;
+                string e_name = "";
+                foreach (var elem in topic)
+                {
+
+                    foreach (var gr in users_gr)
+                    {
+                        if (elem.Key == gr)
+                        {
+                            counter = counter + 1;
+                        }
+                    }
+                    e_name = elem.Value;
+                }
+                string formated = string.Format("{0}: {1}", e_name, counter.ToString());
+                out_list.Add(formated);
+            }
+            return out_list;
         }
     }
 }
