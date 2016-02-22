@@ -40,7 +40,6 @@ namespace VKAnalyzer
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
             ListBox.ItemsSource = Repository.Compare_groups();
-            int test1 = 10;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace VKAnalyzer
     public class Repository
     {
         //https://api.vk.com/method/'''METHOD_NAME'''?'''PARAMETERS'''&access_token='''ACCESS_TOKEN'''
-        string requestText = "https://api.vk.com/method/{0}?{1}&access_token={2}";
+        // string requestText = "https://api.vk.com/method/{0}?{1}&access_token={2}";
         public static string client_id = "5294584";
         public static string scope = "groups";
         string access_token = AuthWindow.access_token;
