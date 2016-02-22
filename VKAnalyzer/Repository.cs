@@ -70,6 +70,7 @@ namespace VKAnalyzer
             var given_gr = Repository.Groped_groups();
             // var out_dict = new Dictionary<int, string>();
             var out_list = new List<string>();
+            int total = 0;
 
             foreach (Dictionary<string, string> topic in given_gr)
             {
@@ -83,6 +84,7 @@ namespace VKAnalyzer
                         if (elem.Key == gr)
                         {
                             counter = counter + 1;
+                            total++;
                         }
                     }
                     e_name = elem.Value;
@@ -90,6 +92,9 @@ namespace VKAnalyzer
                 string formated = string.Format("{0}: {1}", e_name, counter.ToString());
                 out_list.Add(formated);
             }
+            string total_formated = string.Format("Total: {0}", total);
+            out_list.Add(total_formated);
+
             return out_list;
         }
     }
