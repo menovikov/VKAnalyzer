@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 
 namespace VKAnalyzer
@@ -39,6 +40,24 @@ namespace VKAnalyzer
                 searchResults.Add(searchResult.ToString());
             }
             return searchResults;
+        }
+
+        internal static List<Dictionary<string, string>> Groped_groups()
+        {
+            string[] topics = File.ReadAllLines("../../Files/RESULT(formated_urls)T.csv");
+            List<Dictionary<string, string>> themes = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>();
+            foreach (var topic in topics)
+            {
+                Dictionary<string, string> dthemes = new Dictionary<string, string>();
+                string[] lol = topic.Split(';');
+                foreach (var elem in lol)
+                {
+                    if ((elem != "-1") & (elem != lol[0]))
+                        dthemes.Add(elem, lol[0]);
+                }
+                themes.Add(dthemes);
+            }
+            return themes;
         }
 
         static string Query(string method, string parameters, string accesstoken)
