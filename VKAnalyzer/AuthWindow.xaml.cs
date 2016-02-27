@@ -22,10 +22,11 @@ namespace VKAnalyzer
         public static string user_id = "";
         //public static string access_token = "";
         public static string access_token { get; set; }
+        
         public AuthWindow()
         {
             InitializeComponent();
-            AuthBrowser.Navigate(string.Format("https://oauth.vk.com/authorize?client_id={0}&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope={1}&response_type=token&v=5.45&revoke=1", Repository.client_id, Repository.scope));
+            AuthBrowser.Navigate(string.Format("https://oauth.vk.com/authorize?client_id={0}&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope={1}&response_type=token&v=5.45", Repository.client_id, Repository.scope));
         }
 
         private void AuthBrowser_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)

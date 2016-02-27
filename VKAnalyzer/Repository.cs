@@ -19,7 +19,7 @@ namespace VKAnalyzer
         public static string client_id = "5294584";
         public static string scope = "groups";
         string access_token = AuthWindow.access_token;
-        
+        //string requested_user_id = MainWindow.requestedUserId.ToString();
         string user_id = AuthWindow.user_id;
 
         Dictionary<string, string> APImethods = new Dictionary<string, string>()
@@ -30,7 +30,7 @@ namespace VKAnalyzer
         public static List<string> GetGroups()
         {
             var webClient = new WebClient();
-            string jsonString = webClient.DownloadString(Query("groups.get", AuthWindow.user_id, AuthWindow.access_token));
+            string jsonString = webClient.DownloadString(Query("groups.get", MainWindow.requestedUserId.ToString() , AuthWindow.access_token));
             JObject res = JObject.Parse(jsonString);
             IList<JToken> results = res["response"].Children().ToList(); // get JSON result objects into a list
             List<string> searchResults = new List<string>();
@@ -62,7 +62,7 @@ namespace VKAnalyzer
 
         static string Query(string method, string parameters, string accesstoken)
         {
-            return string.Format("https://api.vk.com/method/{0}?{1}&access_token={2}", method, parameters, accesstoken);
+            return string.Format("https://api.vk.com/method/{0}?user_id={1}&access_token={2}", method, parameters, accesstoken);
         }
 
         public static List<string> Compare_groups()

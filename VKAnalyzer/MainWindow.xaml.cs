@@ -25,7 +25,7 @@ namespace VKAnalyzer
             InitializeComponent();
             Auth();
         }
-
+        public static int requestedUserId { get; set; }
         private void Auth()
         {
             AuthWindow window = new AuthWindow();
@@ -34,11 +34,13 @@ namespace VKAnalyzer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            requestedUserId = int.Parse(UserIdTextBlock.Text);
             ListOfGroups.Text = Repository.GetGroups().Count().ToString();
         }
 
         private void Button_Click1(object sender, RoutedEventArgs e)
         {
+            requestedUserId = int.Parse(UserIdTextBlock.Text);
             ListBox.ItemsSource = Repository.Compare_groups();
         }
     }
