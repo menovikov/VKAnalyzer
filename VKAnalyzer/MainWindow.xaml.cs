@@ -25,22 +25,21 @@ namespace VKAnalyzer
             InitializeComponent();
             Auth();
         }
-        public static string requestedUserId { get; set; }
         private void Auth()
         {
             AuthWindow window = new AuthWindow();
             window.Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void GetGroupsButton_Click(object sender, RoutedEventArgs e)
         {
-            requestedUserId = UserIdTextBlock.Text;
+            Repository.Instance.RequestedUserID = UserIdTextBlock.Text;
             ListOfGroups.Text = Repository.GetGroups().Count().ToString();
         }
 
-        private void Button_Click1(object sender, RoutedEventArgs e)
+        private void CompareGroupsButton_Click(object sender, RoutedEventArgs e)
         {
-            requestedUserId = UserIdTextBlock.Text;
+            Repository.Instance.RequestedUserID = UserIdTextBlock.Text;
             ListBox.ItemsSource = Repository.Compare_groups();
         }
     }

@@ -8,8 +8,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="Get groups" Click="Button_Click" Margin="0,0,0,90"/>
-        <Button Content="Try to compare groups" Click="Button_Click1" Grid.Row="2" Margin="0,201,0,-110"/>
+        <Button Name="GetGroupsButton" Content="Get groups" Click="GetGroupsButton_Click" Margin="0,0,0,90"/>
+        <Button Name="CompareGroupsButton" Content="Try to compare groups" Click="CompareGroupsButton_Click" Grid.Row="2" Margin="0,201,0,-110"/>
         <TextBlock Name="ListOfGroups" Grid.Row="1" Margin="0,0,416,0"/>
         <TextBox Name="UserIdTextBlock" Grid.Column="0" Width="100" Height="20" Margin="30,120,387,25" />
         <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="452" Margin="157,75,0,-31" Grid.RowSpan="3" VerticalAlignment="Top" Width="360" />

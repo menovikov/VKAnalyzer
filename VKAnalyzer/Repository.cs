@@ -12,25 +12,36 @@ using System.IO;
 namespace VKAnalyzer
 {
 
-    public class Repository
+    public sealed class Repository
     {
-        //https://api.vk.com/method/'''METHOD_NAME'''?'''PARAMETERS'''&access_token='''ACCESS_TOKEN'''
-        string requestText = "https://api.vk.com/method/{0}?{1}&access_token={2}";
-        public static string client_id = "5294584";
-        public static string scope = "groups";
-        string access_token = AuthWindow.access_token;
-        //string requested_user_id = MainWindow.requestedUserId.ToString();
-        string user_id = AuthWindow.user_id;
+        static readonly Repository _instance = new Repository();
 
-        Dictionary<string, string> APImethods = new Dictionary<string, string>()
+        public static Repository Instance
         {
-            
-        };
+            get
+            {
+                return _instance;
+            }
+        }
+        Repository()
+        {
+            AppID = "5294584";
+            Scope = "groups";
+        }
+
+        public string AccessToken { get; set; }
+        public string LoggedInUserID { get; set; }
+
+        public string AppID { get; set; }
+        public string Scope { get; set; }
+        public string RequestedUserID { get; set; }
+
+
 
         public static List<string> GetGroups()
         {
             var webClient = new WebClient();
-            string jsonString = webClient.DownloadString(Query("groups.get", MainWindow.requestedUserId.ToString() , AuthWindow.access_token));
+            string jsonString = webClient.DownloadString(Query("groups.get", Repository.Instance.RequestedUserID, Repository.Instance.AccessToken));
             JObject res = JObject.Parse(jsonString);
             IList<JToken> results = res["response"].Children().ToList(); // get JSON result objects into a list
             List<string> searchResults = new List<string>();
@@ -42,10 +53,10 @@ namespace VKAnalyzer
             return searchResults;
         }
 
-        internal static List<Dictionary<string, string>> Groped_groups()
+        internal static List<Dictionary<string, string>> Grouped_groups()
         {
             string[] topics = File.ReadAllLines("../../Files/RESULT(formated_urls)T.csv");
-            List<Dictionary<string, string>> themes = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>();
+            List<Dictionary<string, string>> themes = new List<Dictionary<string, string>>();
             foreach (var topic in topics)
             {
                 Dictionary<string, string> dthemes = new Dictionary<string, string>();
@@ -68,7 +79,7 @@ namespace VKAnalyzer
         public static List<string> Compare_groups()
         {
             var users_gr = Repository.GetGroups();
-            var given_gr = Repository.Groped_groups();
+            var given_gr = Repository.Grouped_groups();
             // var out_dict = new Dictionary<int, string>();
             var out_list = new List<string>();
             int total = 0;
