@@ -14,8 +14,10 @@ namespace VKAnalyzer
 
     public sealed class Repository
     {
+        /// <summary>
+        /// Implementing singleton pattern
+        /// </summary>
         static readonly Repository _instance = new Repository();
-
         public static Repository Instance
         {
             get
@@ -26,7 +28,7 @@ namespace VKAnalyzer
         Repository()
         {
             AppID = "5294584";
-            Scope = "groups";
+            Scope = "groups,friends";
         }
 
         public string AccessToken { get; set; }
@@ -69,6 +71,21 @@ namespace VKAnalyzer
                 themes.Add(dthemes);
             }
             return themes;
+        }
+
+        public static List<string> GetFriends()
+        {
+            var webcl = new WebClient();
+            string jsonString = webcl.DownloadString(string.Format("https://api.vk.com/method/friends.get?user_id={0}", Repository.Instance.LoggedInUserID));
+            JObject res = JObject.Parse(jsonString);
+            IList<JToken> results = res["response"].Children().ToList(); // get JSON result objects into a list
+            List<string> searchResults = new List<string>();
+            foreach (JToken result1 in results)
+            {
+                string searchResult = JsonConvert.DeserializeObject<string>(result1.ToString());
+                searchResults.Add(searchResult.ToString());
+            }
+            return searchResults;
         }
 
         static string Query(string method, string parameters, string accesstoken)

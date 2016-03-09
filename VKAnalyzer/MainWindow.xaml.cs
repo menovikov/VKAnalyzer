@@ -42,5 +42,20 @@ namespace VKAnalyzer
             Repository.Instance.RequestedUserID = UserIdTextBlock.Text;
             ListBox.ItemsSource = Repository.Compare_groups();
         }
+
+        private void FriendsComboBox_DropDownOpened(object sender, EventArgs e)
+        {
+            //ProgressBar.IsIndeterminate  = true;
+            FriendsComboBox.ItemsSource =  Repository.GetFriends();
+            //ProgressBar.IsIndeterminate = false;
+        }
+
+        private void FriendsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Repository.Instance.RequestedUserID = FriendsComboBox.SelectedItem.ToString();
+            ListBox.ItemsSource = Repository.Compare_groups();
+        }
+
+      
     }
 }

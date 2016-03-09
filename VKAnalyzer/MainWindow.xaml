@@ -8,10 +8,13 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Name="GetGroupsButton" Content="Get groups" Click="GetGroupsButton_Click" Margin="0,0,0,90"/>
-        <Button Name="CompareGroupsButton" Content="Try to compare groups" Click="CompareGroupsButton_Click" Grid.Row="2" Margin="0,201,0,-110"/>
-        <TextBlock Name="ListOfGroups" Grid.Row="1" Margin="0,0,416,0"/>
+        <Button Name="GetGroupsButton" Content="Get groups" Click="GetGroupsButton_Click" Margin="0,0,416,90"/>
+        <Button Name="CompareGroupsButton" Content="Try to compare groups" Click="CompareGroupsButton_Click" Margin="157,1,239,90"/>
+        <TextBlock Name="ListOfGroups" Grid.Row="1" Margin="0,0,416,128"/>
         <TextBox Name="UserIdTextBlock" Grid.Column="0" Width="100" Height="20" Margin="30,120,387,25" />
-        <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="452" Margin="157,75,0,-31" Grid.RowSpan="3" VerticalAlignment="Top" Width="360" />
+        <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="452" Margin="260,75,0,-31" Grid.RowSpan="3" VerticalAlignment="Top" Width="257" />
+        <ComboBox Name="FriendsComboBox" Grid.Row="1" Width="200" Height="20" Margin="10,77,307,69" 
+                  DropDownOpened="FriendsComboBox_DropDownOpened" ItemsSource="{Binding Path=Repository.GetFriends()}" 
+                  SelectionChanged="FriendsComboBox_SelectionChanged"/>
     </Grid>
 </Window>
