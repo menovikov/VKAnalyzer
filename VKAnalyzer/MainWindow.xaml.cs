@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VKAnalyzer.DTO;
 
 namespace VKAnalyzer
 {
@@ -45,14 +46,13 @@ namespace VKAnalyzer
 
         private void FriendsComboBox_DropDownOpened(object sender, EventArgs e)
         {
-            //ProgressBar.IsIndeterminate  = true;
-            FriendsComboBox.ItemsSource =  Repository.GetFriends();
-            //ProgressBar.IsIndeterminate = false;
+            FriendsComboBox.ItemsSource = Repository.GetFriends();
         }
 
         private void FriendsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Repository.Instance.RequestedUserID = FriendsComboBox.SelectedItem.ToString();
+            var u = (User)FriendsComboBox.SelectedItem;
+            Repository.Instance.RequestedUserID = u.Uid;
             ListBox.ItemsSource = Repository.Compare_groups();
         }
 

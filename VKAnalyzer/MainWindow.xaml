@@ -16,5 +16,6 @@
         <ComboBox Name="FriendsComboBox" Grid.Row="1" Width="200" Height="20" Margin="10,77,307,69" 
                   DropDownOpened="FriendsComboBox_DropDownOpened" ItemsSource="{Binding Path=Repository.GetFriends()}" 
                   SelectionChanged="FriendsComboBox_SelectionChanged"/>
+        <ProgressBar Name="ProgressBar" Grid.Row="1" Margin="0,62,262,89"/>
     </Grid>
 </Window>

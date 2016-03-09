@@ -7,6 +7,7 @@ using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using VKAnalyzer.DTO;
 
 
 namespace VKAnalyzer
@@ -73,17 +74,17 @@ namespace VKAnalyzer
             return themes;
         }
 
-        public static List<string> GetFriends()
+        public static List<User> GetFriends()
         {
             var webcl = new WebClient();
-            string jsonString = webcl.DownloadString(string.Format("https://api.vk.com/method/friends.get?user_id={0}", Repository.Instance.LoggedInUserID));
+            string jsonString = Encoding.UTF8.GetString(webcl.DownloadData(string.Format("https://api.vk.com/method/friends.get?user_id={0}&fields=nickname", Repository.Instance.LoggedInUserID)));
             JObject res = JObject.Parse(jsonString);
-            IList<JToken> results = res["response"].Children().ToList(); // get JSON result objects into a list
-            List<string> searchResults = new List<string>();
+            IList<JToken> results = res["response"].Children().ToList(); 
+            List<User> searchResults = new List<User>();
             foreach (JToken result1 in results)
             {
-                string searchResult = JsonConvert.DeserializeObject<string>(result1.ToString());
-                searchResults.Add(searchResult.ToString());
+                var searchResult = JsonConvert.DeserializeObject<User>(result1.ToString());
+                searchResults.Add(searchResult);
             }
             return searchResults;
         }
