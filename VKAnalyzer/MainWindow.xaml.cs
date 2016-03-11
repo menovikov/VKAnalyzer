@@ -56,6 +56,12 @@ namespace VKAnalyzer
 
         private void FriendsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //
+            Repository.total = 0;
+            Repository.pluses = 0;
+            Repository.small = 0;
+            Repository.exclam = 0;
+            //
             var u = (User)FriendsComboBox.SelectedItem;
             Repository.Instance.RequestedUserID = u.Uid;
             ListBox.ItemsSource = Repository.Compare_groups();
@@ -72,6 +78,12 @@ namespace VKAnalyzer
 
             double error_percent = 100 - (match_percent + match_percent1);
             Statistics.Items.Add(String.Format("\n Mismatch percent: {0:0.#}%", error_percent));
+            if (error_percent > 30)
+                ProgressBar.Background = new SolidColorBrush(Colors.Red);
+            else
+                ProgressBar.Background = new SolidColorBrush(Colors.Green);
+            
+            
         }
 
       
