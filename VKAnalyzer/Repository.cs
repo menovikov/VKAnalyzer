@@ -134,6 +134,14 @@ namespace VKAnalyzer
             return out_list;
         }
 
+        //                           Experimental part
+        //Console.WriteLine("\nExists: Part with Id=1444: {0}",
+        //list_output.Find(x => x.Contains("seat")));
+        public static double total = 0;
+        public static double pluses = 0;
+        public static double exclam = 0;
+        public static double small = 0;
+        //                           /Experimental part
         public static List<string> UG_info()
         {
             var UG_list = GetGroups();
@@ -154,7 +162,7 @@ namespace VKAnalyzer
             int num;
             string str_output;
             list_output.Add("          Id          -     Participants");
-            int total = 0;
+
             foreach (var elem in output)
             {
                 num = 0;
@@ -170,23 +178,33 @@ namespace VKAnalyzer
                 
                 if (num == 1)
                 {
-                    if (elem.Value > 10000)
-                        str_output = String.Format("+ | {0}   -  {1}", elem.Key, elem.Value);
-                    else
-                        str_output = String.Format("+ | {0}   -  {1}", elem.Key, elem.Value);
+                    str_output = String.Format("+ | {0}   -  {1}", elem.Key, elem.Value);
+                    pluses++;
                 }
-                    
                 else
                 {
                     if (elem.Value > 10000)
-                        str_output = String.Format("0  | {0}   -  {1}", elem.Key, elem.Value);
+                    {
+                        str_output = String.Format("!  | {0}   -  {1}", elem.Key, elem.Value);
+                        exclam++;
+                    }
                     else
+                    {
                         str_output = String.Format("   | {0}   -  {1}", elem.Key, elem.Value);
+                        small++;
+                    }
+
                 }
                 list_output.Add(str_output);
             }
-            str_output = String.Format("Total: {0}", total);
-            list_output.Add(total.ToString());
+            //str_output = String.Format("Total: {0}", total);
+            //list_output.Add(str_output);
+            
+            //                           Experimental part
+            //Console.WriteLine("\nExists: Part with Id=1444: {0}",
+            //list_output.Find(x => x.Contains("seat")));
+
+            //                           /Experimental part
 
             return list_output;
         }

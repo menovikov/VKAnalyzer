@@ -60,6 +60,17 @@ namespace VKAnalyzer
             Repository.Instance.RequestedUserID = u.Uid;
             ListBox.ItemsSource = Repository.Compare_groups();
             ListBox1.ItemsSource = Repository.UG_info();
+
+            // statistics below
+            Statistics.Items.Add(String.Format("Total: {0} groups", Repository.total));
+            double match_percent = Repository.pluses / Repository.total * 100;
+            Statistics.Items.Add(String.Format("{0} groups matched ({1:0.#}%)", Repository.pluses, match_percent));
+            
+            double match_percent1 = Repository.small / Repository.total * 100;
+            Statistics.Items.Add(String.Format("{0} small groups ({1:0.#}%)", Repository.small, match_percent1));
+
+            double error_percent = 100 - (match_percent + match_percent1);
+            Statistics.Items.Add(String.Format("\n Mismatch percent: {0:0.#}%", error_percent));
         }
 
       
