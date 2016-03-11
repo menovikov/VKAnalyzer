@@ -34,6 +34,7 @@ namespace VKAnalyzer
                 Repository.Instance.LoggedInUserID = url.Split(splitOptions)[6];
                 if (Repository.Instance.AccessToken != null)
                     this.Close();
+
             }
         }
 
