@@ -135,10 +135,10 @@ namespace VKAnalyzer
 
         public static double total = 0;
         public static double pluses = 0;
-        public static double exclam = 0;
+        public static double exclam = 0; // "big" groups, that are not in DATA file
         public static double small = 0;
 
-        public static List<string> UG_info()
+        public static List<string> UG_info() // UG -- user's groups
         {
             var UG_list = GetGroups();
             List<int> searchResults = new List<int>();
