@@ -56,6 +56,7 @@ namespace VKAnalyzer
             return searchResults;
         }
 
+        
         internal static List<Dictionary<string, string>> Grouped_groups()
         {
             string[] topics = File.ReadAllLines("../../Files/RESULT(formated_urls)T.csv");
@@ -96,6 +97,7 @@ namespace VKAnalyzer
 
         public static List<string> is_in_file = new List<string>();
 
+       
 
         public static List<string> Compare_groups()
         {

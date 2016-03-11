@@ -26,6 +26,7 @@ namespace VKAnalyzer
             InitializeComponent();
             Auth();
         }
+        
         private void Auth()
         {
             AuthWindow window = new AuthWindow();
@@ -46,8 +47,12 @@ namespace VKAnalyzer
 
         private void FriendsComboBox_DropDownOpened(object sender, EventArgs e)
         {
-            FriendsComboBox.ItemsSource = Repository.GetFriends();
+            if (FriendsComboBox.HasItems == false)
+                FriendsComboBox.ItemsSource = Repository.GetFriends();
         }
+
+        
+
 
         private void FriendsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
