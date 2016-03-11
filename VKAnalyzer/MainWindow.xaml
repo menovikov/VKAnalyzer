@@ -12,12 +12,12 @@
         <Button Name="CompareGroupsButton" Content="Try to compare groups" Click="CompareGroupsButton_Click" Margin="130,1,544,90"/>
         <TextBlock Name="ListOfGroups" Grid.Row="1" Margin="0,0,416,128"/>
         <TextBox Name="UserIdTextBlock" Grid.Column="0" Height="20" Margin="0,80,664,65" />
-        <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="584" Margin="260,10,0,-98" Grid.RowSpan="3" VerticalAlignment="Top" Width="257" />
-        <ComboBox Name="FriendsComboBox" Grid.Row="1" Width="200" Height="20" Margin="33,95,571,51" 
+        <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="553" Margin="318,10,0,-67" Grid.RowSpan="3" VerticalAlignment="Top" Width="221" />
+        <ComboBox Name="FriendsComboBox" Width="200" Height="20" Margin="48,121,529,24" 
                   DropDownOpened="FriendsComboBox_DropDownOpened" ItemsSource="{Binding Path=Repository.GetFriends()}" 
                   SelectionChanged="FriendsComboBox_SelectionChanged"/>
-        <ProgressBar Name="ProgressBar" Grid.Row="2" Margin="10,175,581,-31"/>
+        <ProgressBar Name="ProgressBar" Grid.Row="1" Margin="10,10,750,11"/>
         <ListBox x:Name="ListBox1" HorizontalAlignment="Left" Height="517" Margin="557,10,0,-31" Grid.RowSpan="3" VerticalAlignment="Top" Width="210"/>
-        <ListBox x:Name="Statistics" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2"  VerticalAlignment="Top" Height="145" Width="186"/>
+        <ListBox x:Name="Statistics" HorizontalAlignment="Left" Margin="40,10,0,0" Grid.Row="1"  VerticalAlignment="Top" Height="145" Width="186"/>
     </Grid>
 </Window>

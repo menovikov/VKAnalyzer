@@ -114,20 +114,19 @@ namespace VKAnalyzer
                 foreach (var elem in topic)
                 {
                     foreach (var gr in users_gr)
-                    {
                         if (elem.Key == gr)
                         {
                             counter = counter + 1;
                             total++;
                             is_in_file.Add(gr);
-                        }
                     }
                     e_name = elem.Value;
                 }
                 string formated = string.Format("{0}: {1}", e_name, counter.ToString());
-                out_list.Add(formated);
+                if(counter != 0)
+                    out_list.Add(formated);
             }
-            string total_formated = string.Format("Total: {0}", total);
+            string total_formated = string.Format("\nTotal: {0}", total);
             out_list.Add(total_formated);
 
             return out_list;
