@@ -62,6 +62,7 @@ namespace VKAnalyzer
             ListBox1.ItemsSource = Repository.UG_info();
 
             // statistics below
+            Statistics.Items.Clear();
             Statistics.Items.Add(String.Format("Total: {0} groups", Repository.total));
             double match_percent = Repository.pluses / Repository.total * 100;
             Statistics.Items.Add(String.Format("{0} groups matched ({1:0.#}%)", Repository.pluses, match_percent));
