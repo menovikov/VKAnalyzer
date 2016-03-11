@@ -94,6 +94,9 @@ namespace VKAnalyzer
             return string.Format("https://api.vk.com/method/{0}?user_id={1}&access_token={2}", method, parameters, accesstoken);
         }
 
+        public static List<string> is_in_file = new List<string>();
+
+
         public static List<string> Compare_groups()
         {
             var users_gr = Repository.GetGroups();
@@ -106,15 +109,16 @@ namespace VKAnalyzer
             {
                 int counter = 0;
                 string e_name = "";
+
                 foreach (var elem in topic)
                 {
-
                     foreach (var gr in users_gr)
                     {
                         if (elem.Key == gr)
                         {
                             counter = counter + 1;
                             total++;
+                            is_in_file.Add(gr);
                         }
                     }
                     e_name = elem.Value;
@@ -127,5 +131,8 @@ namespace VKAnalyzer
 
             return out_list;
         }
+
+
+
     }
 }
