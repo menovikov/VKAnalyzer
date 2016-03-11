@@ -54,6 +54,7 @@ namespace VKAnalyzer
             var u = (User)FriendsComboBox.SelectedItem;
             Repository.Instance.RequestedUserID = u.Uid;
             ListBox.ItemsSource = Repository.Compare_groups();
+            ListBox1.ItemsSource = Repository.UG_info();
         }
 
       

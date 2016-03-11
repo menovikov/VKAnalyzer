@@ -1,21 +1,22 @@
 ﻿<Window x:Class="VKAnalyzer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="625.56" Width="525">
-    <Grid Margin="0,0,0,99">
+        Title="MainWindow" Height="625.56" Width="777.239">
+    <Grid Margin="0,0,-8,99">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Name="GetGroupsButton" Content="Get groups" Click="GetGroupsButton_Click" Margin="0,0,416,90"/>
-        <Button Name="CompareGroupsButton" Content="Try to compare groups" Click="CompareGroupsButton_Click" Margin="157,1,239,90"/>
+        <Button Name="GetGroupsButton" Content="Get groups" Click="GetGroupsButton_Click" Margin="0,0,700,90"/>
+        <Button Name="CompareGroupsButton" Content="Try to compare groups" Click="CompareGroupsButton_Click" Margin="130,1,544,90"/>
         <TextBlock Name="ListOfGroups" Grid.Row="1" Margin="0,0,416,128"/>
-        <TextBox Name="UserIdTextBlock" Grid.Column="0" Width="100" Height="20" Margin="30,120,387,25" />
-        <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="452" Margin="260,75,0,-31" Grid.RowSpan="3" VerticalAlignment="Top" Width="257" />
-        <ComboBox Name="FriendsComboBox" Grid.Row="1" Width="200" Height="20" Margin="10,77,307,69" 
+        <TextBox Name="UserIdTextBlock" Grid.Column="0" Height="20" Margin="0,80,664,65" />
+        <ListBox x:Name="ListBox" HorizontalAlignment="Left" Height="584" Margin="260,10,0,-98" Grid.RowSpan="3" VerticalAlignment="Top" Width="257" />
+        <ComboBox Name="FriendsComboBox" Grid.Row="1" Width="200" Height="20" Margin="33,95,571,51" 
                   DropDownOpened="FriendsComboBox_DropDownOpened" ItemsSource="{Binding Path=Repository.GetFriends()}" 
                   SelectionChanged="FriendsComboBox_SelectionChanged"/>
-        <ProgressBar Name="ProgressBar" Grid.Row="1" Margin="0,62,262,89"/>
+        <ProgressBar Name="ProgressBar" Grid.Row="1" Margin="0,62,549,89"/>
+        <ListBox x:Name="ListBox1" HorizontalAlignment="Left" Height="517" Margin="557,10,0,-31" Grid.RowSpan="3" VerticalAlignment="Top" Width="210"/>
     </Grid>
 </Window>
