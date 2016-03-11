@@ -103,7 +103,6 @@ namespace VKAnalyzer
         {
             var users_gr = Repository.GetGroups();
             var given_gr = Repository.Grouped_groups();
-            // var out_dict = new Dictionary<int, string>();
             var out_list = new List<string>();
             int total = 0;
 
@@ -134,14 +133,11 @@ namespace VKAnalyzer
             return out_list;
         }
 
-        //                           Experimental part
-        //Console.WriteLine("\nExists: Part with Id=1444: {0}",
-        //list_output.Find(x => x.Contains("seat")));
         public static double total = 0;
         public static double pluses = 0;
         public static double exclam = 0;
         public static double small = 0;
-        //                           /Experimental part
+
         public static List<string> UG_info()
         {
             var UG_list = GetGroups();
@@ -197,14 +193,6 @@ namespace VKAnalyzer
                 }
                 list_output.Add(str_output);
             }
-            //str_output = String.Format("Total: {0}", total);
-            //list_output.Add(str_output);
-            
-            //                           Experimental part
-            //Console.WriteLine("\nExists: Part with Id=1444: {0}",
-            //list_output.Find(x => x.Contains("seat")));
-
-            //                           /Experimental part
 
             return list_output;
         }
