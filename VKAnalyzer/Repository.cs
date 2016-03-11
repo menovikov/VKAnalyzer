@@ -151,7 +151,7 @@ namespace VKAnalyzer
             }
             int num;
             string str_output;
-
+            list_output.Add("          Id          -     Participants");
             foreach (var elem in output)
             {
                 num = 0;
@@ -164,9 +164,9 @@ namespace VKAnalyzer
                     }
                 }
                 if (num == 1)
-                    str_output = String.Format("+ |{0}   -  {1}", elem.Key, elem.Value);
+                    str_output = String.Format("+ | {0}   -  {1}", elem.Key, elem.Value);
                 else
-                    str_output = String.Format("   |{0}   -  {1}", elem.Key, elem.Value);
+                    str_output = String.Format("   | {0}   -  {1}", elem.Key, elem.Value);
                 list_output.Add(str_output);
             }
 
