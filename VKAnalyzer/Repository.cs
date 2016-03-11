@@ -132,6 +132,47 @@ namespace VKAnalyzer
             return out_list;
         }
 
+        public static List<string> UG_info()
+        {
+            var UG_list = GetGroups();
+            List<int> searchResults = new List<int>();
+            var webClient = new WebClient();
+            var output = new Dictionary<string, int>();
+            List<string> list_output = new List<string>();
+
+            foreach (var elem in UG_list)
+            {
+                string link = string.Format("https://api.vk.com/method/{0}?group_id={1}", "groups.getMembers", elem);
+                JObject res = JObject.Parse(webClient.DownloadString(link));
+                JToken result = res["response"]["count"].ToString();
+                var num_result = int.Parse(result.ToString());
+                output.Add(elem, num_result);
+                searchResults.Add(num_result);
+            }
+            int num;
+            string str_output;
+
+            foreach (var elem in output)
+            {
+                num = 0;
+                foreach (var a in is_in_file)
+                {
+                    if (elem.Key == a)
+                    {
+                        num = 1;
+                        break;
+                    }
+                }
+                if (num == 1)
+                    str_output = String.Format("+ |{0}   -  {1}", elem.Key, elem.Value);
+                else
+                    str_output = String.Format("   |{0}   -  {1}", elem.Key, elem.Value);
+                list_output.Add(str_output);
+            }
+
+
+            return list_output;
+        }
 
 
     }
