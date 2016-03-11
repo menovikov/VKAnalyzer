@@ -152,9 +152,11 @@ namespace VKAnalyzer
             int num;
             string str_output;
             list_output.Add("          Id          -     Participants");
+            int total = 0;
             foreach (var elem in output)
             {
                 num = 0;
+                total++;
                 foreach (var a in is_in_file)
                 {
                     if (elem.Key == a)
@@ -163,13 +165,26 @@ namespace VKAnalyzer
                         break;
                     }
                 }
+                
                 if (num == 1)
-                    str_output = String.Format("+ | {0}   -  {1}", elem.Key, elem.Value);
+                {
+                    if (elem.Value > 10000)
+                        str_output = String.Format("+ | {0}   -  {1}", elem.Key, elem.Value);
+                    else
+                        str_output = String.Format("+ | {0}   -  {1}", elem.Key, elem.Value);
+                }
+                    
                 else
-                    str_output = String.Format("   | {0}   -  {1}", elem.Key, elem.Value);
+                {
+                    if (elem.Value > 10000)
+                        str_output = String.Format("0  | {0}   -  {1}", elem.Key, elem.Value);
+                    else
+                        str_output = String.Format("   | {0}   -  {1}", elem.Key, elem.Value);
+                }
                 list_output.Add(str_output);
             }
-
+            str_output = String.Format("Total: {0}", total);
+            list_output.Add(total.ToString());
 
             return list_output;
         }
