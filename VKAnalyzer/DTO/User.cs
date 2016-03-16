@@ -9,7 +9,7 @@ namespace VKAnalyzer.DTO
 {
     public class User
     {
-        [JsonProperty("uid")]
+        [JsonProperty("uid")] 
         public string Uid { get; set; }
 
         [JsonProperty("first_name")]

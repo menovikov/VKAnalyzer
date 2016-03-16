@@ -22,18 +22,23 @@ namespace VKAnalyzer
         public AuthWindow()
         {
             InitializeComponent();
-            AuthBrowser.Navigate(string.Format("https://oauth.vk.com/authorize?client_id={0}&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope={1}&response_type=token&v=5.45", Repository.Instance.AppID, Repository.Instance.Scope));
+            AuthBrowser.Navigate(string.Format("https://oauth.vk.com/authorize?client_id={0}&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope={1}&response_type=token&v=5.45", VkRepository.Instance.AppID, VkRepository.Instance.Scope));
         }
+
+        public static event Action<string> OnLoggedIn;
         private void AuthBrowser_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             if (e.Uri.ToString().Contains("access_token") == true)
             {
                 string url = e.Uri.ToString();
                 char[] splitOptions = { '#', '&', '=' };
-                Repository.Instance.AccessToken = url.Split(splitOptions)[2];
-                Repository.Instance.LoggedInUserID = url.Split(splitOptions)[6];
-                if (Repository.Instance.AccessToken != null)
+                VkRepository.Instance.AccessToken = url.Split(splitOptions)[2];
+                VkRepository.Instance.LoggedInUserID = url.Split(splitOptions)[6];
+                if (VkRepository.Instance.AccessToken != null)
+                {
+                    OnLoggedIn(VkRepository.Instance.LoggedInUserID);
                     this.Close();
+                }
 
             }
         }

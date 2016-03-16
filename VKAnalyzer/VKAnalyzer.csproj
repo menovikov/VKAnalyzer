@@ -61,7 +61,10 @@
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DTO\User.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="Supported Repositories\FacebookRepository.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Supported Repositories\VkRepository.cs" />
+    <Compile Include="RepositoryFactory.cs" />
     <Page Include="AuthWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Files\profile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
