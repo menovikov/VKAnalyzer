@@ -14,6 +14,7 @@ namespace VKAnalyzer
         string AppID { get; set; }
         string Scope { get; set; }
         string RequestedUserID { get; set; }
+        bool SignedIn { get; set; }
         
     }
 }

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using VKAnalyzer.DTO;
+using System.Windows;
 
 
 namespace VKAnalyzer
@@ -38,7 +39,7 @@ namespace VKAnalyzer
         public string AppID { get; set; }
         public string Scope { get; set; }
         public string RequestedUserID { get; set; }
-
+        public bool SignedIn { get; set; }
 
 
         public List<string> GetGroups()
@@ -49,7 +50,6 @@ namespace VKAnalyzer
                     var jsonString = "";
                     var webClient = new WebClient();
 
-                    //var str = new Uri(string.Format("https://api.vk.com/method/{0}?user_id={1}&access_token={2}", "groups.get", VkRepository.Instance.RequestedUserID, VkRepository.Instance.AccessToken));
                     jsonString = webClient.DownloadString(string.Format("https://api.vk.com/method/{0}?user_id={1}&access_token={2}", "groups.get", VkRepository.Instance.RequestedUserID, VkRepository.Instance.AccessToken));
 
                     JObject res = JObject.Parse(jsonString);
@@ -232,10 +232,26 @@ namespace VKAnalyzer
         internal static User GetUserInfo(string c, string fields)
         {
             WebClient web = new WebClient();
-            string jsonString = Encoding.UTF8.GetString(web.DownloadData(string.Format("https://api.vk.com/method/users.get?user_ids={0}", c)));
+            string jsonString = Encoding.UTF8.GetString(web.DownloadData(string.Format("https://api.vk.com/method/users.get?user_ids={0}&fields={1}", c, fields)));
             JObject res = JObject.Parse(jsonString);
             IList<JToken> results = res["response"].Children().ToList();
             return JsonConvert.DeserializeObject<User>(results[0].ToString());
         }
+        public static int counter = 0;
+        public static event Action ImageReady;
+        internal static void DownloadFile (string path)
+        {
+            counter += 1;
+            using (var web = new WebClient())
+            {
+                web.DownloadFileAsync(new Uri(path), string.Format("{0}avatar.jpg", counter.ToString()));
+                web.DownloadFileCompleted += (sender, e) =>
+                    {
+                        ImageReady();
+                    };
+            }
+        }
+
+        
     }
 }

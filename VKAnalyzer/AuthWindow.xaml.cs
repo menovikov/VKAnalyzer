@@ -36,7 +36,9 @@ namespace VKAnalyzer
                 VkRepository.Instance.LoggedInUserID = url.Split(splitOptions)[6];
                 if (VkRepository.Instance.AccessToken != null)
                 {
-                    OnLoggedIn(VkRepository.Instance.LoggedInUserID);
+                    VkRepository.Instance.SignedIn = true;
+                    if(OnLoggedIn != null)
+                        OnLoggedIn(VkRepository.Instance.LoggedInUserID);
                     this.Close();
                 }
 

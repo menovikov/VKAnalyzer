@@ -23,16 +23,30 @@ namespace VKAnalyzer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _r = "Vk";
+        //r1 and r2 are provided due to
+        //inability to use factory pattern
+        //with sungleton
+        private VkRepository r1 = VkRepository.Instance;
+        private FacebookRepository r2 = FacebookRepository.Instance;
+
+
         public MainWindow()
         {
             InitializeComponent();
-            
-            Ev += () =>
-                Dispatcher.BeginInvoke(new Action(delegate()
-                {
-                    WaitProgressBar.IsIndeterminate = true;
-                }));
+            VkRepository.ImageReady += () => 
+            {
+                UserAvatar.Children.Clear();
+
+                Image i = new Image();
+                BitmapImage src = new BitmapImage();
+                src.BeginInit();
+                src.UriSource = new Uri(string.Format("{0}avatar.jpg", VkRepository.counter.ToString()), UriKind.Relative);
+                src.CacheOption = BitmapCacheOption.OnLoad;
+                src.EndInit();
+                i.Source = src;
+                i.Stretch = Stretch.Uniform;
+                UserAvatar.Children.Add(i);
+            };
             AuthWindow.OnLoggedIn += (c) =>
                 {
                     AuthInfo.Text = VkRepository.GetUserInfo(c).ToString();
@@ -47,36 +61,30 @@ namespace VKAnalyzer
 
         private void CompareGroupsButton_Click(object sender, RoutedEventArgs e)
         {
-            VkRepository.Instance.RequestedUserID = UserIdTextBlock.Text;
-            ListBox.ItemsSource = VkRepository.Instance.Compare_groups();
-        }
 
-        private void FriendsComboBox_DropDownOpened(object sender, EventArgs e)
-        {
-            if (FriendsComboBox.HasItems == false)
-                    FriendsComboBox.ItemsSource = VkRepository.Instance.GetFriends();
-        }
-
-        private event Action Ev;
-        private void FriendsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            var t = new Thread(() => WaitProgressBar.IsIndeterminate = true);
-            
-            Dispatcher.BeginInvoke(new Action(delegate()
+            if (!VkOn.IsEnabled && r1.SignedIn == true)
             {
-                
+                if (UserIdTextBlock.Text != "")
+                {
+                    UserAvatar.Children.Clear();
+                    UserInfoListView.Items.Clear();
+                    User u = VkRepository.GetUserInfo(UserIdTextBlock.Text, "bdate,sex,followers_count");
+
+                    UserInfoListView.Items.Add("Name: " + u);
+                    UserInfoListView.Items.Add("Birth date: " + u.Bdate);
+                    UserInfoListView.Items.Add("Gender: " + u.Gender);
+                    UserInfoListView.Items.Add("Followers: " + u.Followers);
                     //
                     VkRepository.total = 0;
                     VkRepository.pluses = 0;
                     VkRepository.small = 0;
                     VkRepository.exclam = 0;
                     //
-                    var u = (User)FriendsComboBox.SelectedItem;
-                    VkRepository.Instance.RequestedUserID = u.Uid;
+                    VkRepository.Instance.RequestedUserID = UserIdTextBlock.Text;
+                    ListBox.ItemsSource = r1.Compare_groups();
                     ListBox.ItemsSource = VkRepository.Instance.Compare_groups();
                     ListBox1.ItemsSource = VkRepository.Instance.UG_info();
-                    
+
                     // statistics below
                     Statistics.Items.Clear();
                     Statistics.Items.Add(String.Format("Total: {0} groups", VkRepository.total));
@@ -92,28 +100,90 @@ namespace VKAnalyzer
                         ProgressBar.Background = new SolidColorBrush(Colors.Red);
                     else
                         ProgressBar.Background = new SolidColorBrush(Colors.Green);
+                }
+                else
+                    MessageBox.Show("Please, enter Id or pick a friend");
+            }
+            else
+                MessageBox.Show("You didn't sign in");
 
+        }
+
+
+        private event Action Ev;
+        private void FriendsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!VkOn.IsEnabled)
+            {
+                Dispatcher.BeginInvoke(new Action(delegate()
+                {
+                    var u = (User)FriendsComboBox.SelectedItem;
+                    VkRepository.Instance.RequestedUserID = u.Uid;
+                    UserIdTextBlock.Text = u.Uid;
                 }));
+            }
         }
 
         private void VkOn_Click(object sender, RoutedEventArgs e)
         {
-            _r = "Vk";
-            VkOn.Background = Brushes.Green;
-            FBOn.Background = Brushes.White;
+            VkOn.IsEnabled = false;
+            FBOn.IsEnabled = true;
+            Login.IsEnabled = true;
         }
 
         private void FBOn_Click(object sender, RoutedEventArgs e)
         {
-            _r = "FB";
-            FBOn.Background = Brushes.Green;
-            VkOn.Background = Brushes.White;
+            VkOn.IsEnabled = true;
+            FBOn.IsEnabled = false;
+            Login.IsEnabled = false;
+            AuthInfo.Text = "";
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             Auth();
             Login.IsEnabled = false;
+        }
+
+        private void OpenIdBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (r1.SignedIn == true)
+            {
+                UserIdTextBlock.Visibility = Visibility.Visible;
+                FriendsComboBox.Visibility = Visibility.Hidden;
+            }
+            else
+                MessageBox.Show("You didn't sign in");
+        }
+
+        private void OpenFriendsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (r1.SignedIn == true)
+            {
+                if (!VkOn.IsEnabled)
+                {
+                    if (FriendsComboBox.HasItems == false)
+                        FriendsComboBox.ItemsSource = VkRepository.Instance.GetFriends();
+                }
+                UserIdTextBlock.Visibility = Visibility.Hidden;
+                FriendsComboBox.Visibility = Visibility.Visible;
+            }
+            else
+                MessageBox.Show("You didn't sign in");
+        }
+
+        private void DownloadProfilePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            if (r1.SignedIn == true)
+            {
+                if (!VkOn.IsEnabled)
+                {
+                    User u = VkRepository.GetUserInfo(VkRepository.Instance.RequestedUserID, "photo_200");
+                    VkRepository.DownloadFile(u.Photo);
+                }
+            }
+            else
+                MessageBox.Show("You didn't sign in");
         }
 
 

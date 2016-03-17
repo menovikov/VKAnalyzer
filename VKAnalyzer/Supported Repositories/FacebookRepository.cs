@@ -143,5 +143,18 @@ namespace VKAnalyzer
                 throw new NotImplementedException();
             }
         }
+
+
+        public bool SignedIn
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

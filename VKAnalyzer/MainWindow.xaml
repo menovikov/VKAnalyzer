@@ -5,35 +5,47 @@
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="109*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="148*"/>
+            <RowDefinition Height="109*"/>
+            <RowDefinition Height="109*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="VK Analyzer" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="LightCoral"/>
+        <Button Name="OpenIdBtn" Grid.Row="1"  Content="Find user by id" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" Click="OpenIdBtn_Click" />
+        <Button Name="OpenFriendsBtn" Grid.Row="1" Content="Find user from My Friends" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,30,0,0" Click="OpenFriendsBtn_Click"/>
+        <Button Name="DownloadProfilePhoto" Content="Download profile photo" Grid.Row="1" Click="DownloadProfilePhoto_Click" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,55,0,0"/>
+        <Button Grid.Row="1"  Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,80,0,0"/>
+        <TabPanel></TabPanel>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="VK Analyzer" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="LightCoral" Margin="65,0" Width="170"/>
         <ListBox x:Name="ListBox" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Stretch" Grid.Column="1" Margin="5"/>
         <ListBox x:Name="ListBox1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Stretch" Grid.Column="2" Margin="5"/>
-        <ListBox x:Name="Statistics" HorizontalAlignment="Center" Height="100" Width="200" Grid.Row="4"/>
-        <Image Source="Files/profile.png" Grid.Column="2" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="5"/>
+        <ListBox x:Name="Statistics" HorizontalAlignment="Center" Width="200" Grid.Row="5" Margin="50,4,50,5"/>
+        <Image Source="Files/profile.png" Grid.Column="2" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,5,0" Height="20"/>
         <Button Name="Login" Grid.Column="2" VerticalAlignment="Top" Width="40" Height="20" Content="Sign in" HorizontalAlignment="Right" Margin="0,5,36,0" RenderTransformOrigin="-1.475,0.425" Click="Login_Click"/>
-        <TextBlock Name="AuthInfo" Grid.Column="2" HorizontalAlignment="Right" Margin="5" FontSize="15" VerticalAlignment="Bottom" />
-        <Button Name="CompareGroupsButton" Content="Try to compare groups" Grid.Row="2" Click="CompareGroupsButton_Click" Width="80" Height="20" Margin="20,45,200,44" />
-        <TextBox Name="UserIdTextBlock" Grid.Column="0" Height="20" Width="200" Grid.Row="1" VerticalAlignment="Bottom" />
-        
-        <ComboBox Name="FriendsComboBox" Height="20" Grid.Row="1" Width="200"
-                  DropDownOpened="FriendsComboBox_DropDownOpened" IsEditable="True" 
-                  IsTextSearchEnabled="True" 
-                  SelectionChanged="FriendsComboBox_SelectionChanged"/>
-        <ProgressBar Name="ProgressBar" Grid.Row="4" HorizontalAlignment="Left" Width="10"/>
+        <TextBlock Name="AuthInfo" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,5,5" FontSize="15" VerticalAlignment="Bottom" Height="20" Width="0" />
+        <Button Name="CompareGroupsButton" Content="Analyze" Grid.Row="1" Click="CompareGroupsButton_Click" Margin="214,5,6,9" />
+        <TextBox Name="UserIdTextBlock" Grid.Column="0" Height="20" Grid.Row="2" VerticalAlignment="Center" Visibility="Hidden" Margin="50,25" />
 
-        <Button Name="VkOn" Grid.Row="1" Width="50" Height="20" HorizontalAlignment="Left" Content="Vk" Click="VkOn_Click"/>
-        <Button Name="FBOn" Grid.Row="1" Width="50" Height="20" HorizontalAlignment="Right" Content="FB" Click="FBOn_Click"/>
-        <ProgressBar Name="WaitProgressBar" Grid.Row="2" Height="10" VerticalAlignment="Bottom" Width="200"/>
+        <ComboBox Name="FriendsComboBox" Grid.Row="2" Height="20" Width="200" Visibility="Hidden"
+                  IsReadOnly="True" 
+                  IsTextSearchEnabled="True" IsEditable="True"
+                  SelectionChanged="FriendsComboBox_SelectionChanged" />
+        <ProgressBar Name="ProgressBar" Grid.Row="5" HorizontalAlignment="Left" Width="10"/>
+
+        <Button Name="VkOn" Grid.Row="0" Grid.Column="2" Width="30" HorizontalAlignment="Left"  Click="VkOn_Click" IsEnabled="False" Margin="0,10">
+            <Image Source="Files/Vk.ico" />
+        </Button>
+        <Button Name="FBOn" Grid.Row="0" Grid.Column="2" Width="30" HorizontalAlignment="Left"  Click="FBOn_Click" Margin="30,10,0,10" >
+            <Image Source="Files/fb.jpg"/>
+        </Button>
+        <StackPanel Name="UserAvatar"  Grid.Row="3" Margin="0,0,0,51" Visibility="Visible" Width="200" Height="200"/>
+        <ListView Name="UserInfoListView" HorizontalAlignment="Center" VerticalAlignment="Top"  Grid.Row="4" Grid.RowSpan="2"  Width="200" Margin="5">
+        </ListView>
     </Grid>
 </Window>
