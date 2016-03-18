@@ -109,7 +109,7 @@ namespace VKAnalyzer
                     points.Clear();
                     points.Add(new Point(1, error_percent));
                     points.Add(new Point(2, match_percent1));
-                    points.Add(new Point(3, match_percent1));
+                    points.Add(new Point(3, match_percent));
                     PieSeries.ItemsSource = points;
                 }
                 else
