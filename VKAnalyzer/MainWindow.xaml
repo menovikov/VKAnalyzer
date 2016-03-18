@@ -1,7 +1,9 @@
 ﻿<Window x:Class="VKAnalyzer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         Title="MainWindow" Height="625.56" Width="777.239">
+    
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -47,5 +49,13 @@
         <StackPanel Name="UserAvatar"  Grid.Row="3" Margin="0,0,0,51" Visibility="Visible" Width="200" Height="200"/>
         <ListView Name="UserInfoListView" HorizontalAlignment="Center" VerticalAlignment="Top"  Grid.Row="4" Grid.RowSpan="2"  Width="200" Margin="5">
         </ListView>
+
+        <chartingToolkit:Chart Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Title="Pie statistics">
+            <chartingToolkit:Chart.DataContext>
+                <PointCollection>1,3 2,4 3,9 4,16 112,49</PointCollection>
+            </chartingToolkit:Chart.DataContext>
+            <chartingToolkit:PieSeries x:Name="PieSeries" DependentValuePath="Y" IndependentValuePath="X" ItemsSource="{Binding}" />
+        </chartingToolkit:Chart>
+
     </Grid>
 </Window>

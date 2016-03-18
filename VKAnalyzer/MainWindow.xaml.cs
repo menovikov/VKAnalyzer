@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -59,6 +60,9 @@ namespace VKAnalyzer
             window.Show();
         }
 
+        // Pie chart
+        ObservableCollection<Point> points = new ObservableCollection<Point>();
+
         private void CompareGroupsButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -100,13 +104,19 @@ namespace VKAnalyzer
                         ProgressBar.Background = new SolidColorBrush(Colors.Red);
                     else
                         ProgressBar.Background = new SolidColorBrush(Colors.Green);
+
+                    // Pie chart
+                    points.Clear();
+                    points.Add(new Point(1, error_percent));
+                    points.Add(new Point(2, match_percent1));
+                    points.Add(new Point(3, match_percent1));
+                    PieSeries.ItemsSource = points;
                 }
                 else
                     MessageBox.Show("Please, enter Id or pick a friend");
             }
             else
                 MessageBox.Show("You didn't sign in");
-
         }
 
 
@@ -184,6 +194,19 @@ namespace VKAnalyzer
             }
             else
                 MessageBox.Show("You didn't sign in");
+        }
+
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            points.Clear();
+            points.Add(new Point(64, 6));
+            points.Add(new Point(32, 5));
+            points.Add(new Point(16, 4));
+            points.Add(new Point(8, 3));
+            points.Add(new Point(4, 2));
+
+            PieSeries.ItemsSource = points;
         }
 
 
