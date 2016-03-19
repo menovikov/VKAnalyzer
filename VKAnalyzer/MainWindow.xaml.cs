@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -107,10 +108,21 @@ namespace VKAnalyzer
 
                     // Pie chart
                     points.Clear();
-                    points.Add(new Point(1, error_percent));
-                    points.Add(new Point(2, match_percent1));
-                    points.Add(new Point(3, match_percent));
-                    PieSeries.ItemsSource = points;
+                    //points.Add(new Point("", error_percent));
+                    //points.Add(new Point(2, match_percent1));
+                    //points.Add(new Point(3, match_percent));
+                    //PieSeries.ItemsSource = points;
+                    //PieSeries.LegendItems.Clear();
+                    //PieSeries.LegendItems.Add("match");
+                    //PieSeries.LegendItems.Add("small");
+                    //PieSeries.LegendItems.Add("mismatch");
+
+                    ((PieSeries)mcChart.Series[0]).ItemsSource =
+                        new KeyValuePair<string, double>[]{
+                        new KeyValuePair<string,double>("Match", error_percent),
+                        new KeyValuePair<string,double>("Small", match_percent1),
+                        new KeyValuePair<string,double>("Mismatch", match_percent)};
+
                 }
                 else
                     MessageBox.Show("Please, enter Id or pick a friend");
@@ -195,20 +207,5 @@ namespace VKAnalyzer
             else
                 MessageBox.Show("You didn't sign in");
         }
-
-
-        private void UpdateButton_Click(object sender, RoutedEventArgs e)
-        {
-            points.Clear();
-            points.Add(new Point(64, 6));
-            points.Add(new Point(32, 5));
-            points.Add(new Point(16, 4));
-            points.Add(new Point(8, 3));
-            points.Add(new Point(4, 2));
-
-            PieSeries.ItemsSource = points;
-        }
-
-
     }
 }
