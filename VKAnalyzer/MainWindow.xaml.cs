@@ -20,7 +20,11 @@ using VKAnalyzer.DTO;
 
 namespace VKAnalyzer
 {
-    /// <summary>
+    class Context :DbContext
+    {
+        public DbSet<User> Users {get; set; }
+    }
+    }/// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
@@ -63,8 +67,31 @@ namespace VKAnalyzer
 
         // Pie chart
         ObservableCollection<Point> points = new ObservableCollection<Point>();
-
-        private void CompareGroupsButton_Click(object sender, RoutedEventArgs e)
+        private void AddUserToDB_Click(object sender, RoutedEventARgs e)
+        {
+            if (r1.SignedIn == true)
+            { 
+                if (!VkOn.IsEnabled)
+                {
+                    try
+                    {
+                        User u = (User)FriendsComboBox.SelectedItem;
+                        if (u.Followers ! = "")
+                        VkRepository.AddToDB(u);
+                        else
+                        MessageBox.Show("You didn't get users data");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message+ "Select User from your friends list");
+                    }
+                }
+            }
+            else  
+            MessageBox.Show("You didn't sign in");
+            }
+            
+        privatevoid CompareGroupsButton_Click(object sender, RoutedEventArgs e)
         {
 
             if (!VkOn.IsEnabled && r1.SignedIn == true)
