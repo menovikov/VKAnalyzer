@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VKAnalyzer
 {
-    class FacebookRepository :  IRepository
+    public sealed class FacebookRepository :  IRepository
     {
         // there is going to be some stuff later
         static readonly FacebookRepository _instance = new FacebookRepository();

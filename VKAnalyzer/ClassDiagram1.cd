@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VKAnalyzer.FacebookRepository">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGKAAAAABAICAgAAAAAAQQEAAAAAAAQAAAAAAAEAA=</HashCode>
+      <FileName>Supported Repositories\FacebookRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VKAnalyzer.VkRepository">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAABAAAAAISBgICAAAgQBEAAAQBFEQEAACAYgEAA=</HashCode>
+      <FileName>Supported Repositories\VkRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VKAnalyzer.DTO.User">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEAAAAAAACCkABAAAAAAAAAAAAAAgAAAAAAAAAg=</HashCode>
+      <FileName>DTO\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VKAnalyzer.AuthWindow">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuthWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VKAnalyzer.Context">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VKAnalyzer.DBItems">
+    <Position X="5.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DBItems.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VKAnalyzer.MainWindow">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAACAAAAQBAAAAAAAAIAAQgAAgASAIAAAABAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VKAnalyzer.RepositoryFactory">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="VKAnalyzer.RepositoryFactory.Repositories" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RepositoryFactory.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RepositoryFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="VKAnalyzer.IRepository">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAICAgAAAAAAQAEAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

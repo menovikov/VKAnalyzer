@@ -28,7 +28,7 @@
         <Button Name="AddUserToDB" Content="Add user to database" Grid.Row="1" Click="AddUserToDB_Click" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,79,0,0"/>
         <TabPanel></TabPanel>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="VK Analyzer" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="LightCoral" Margin="65,0" Width="170"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="VK Info Analyzer" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="LightCoral" />
         <ListBox x:Name="ListBox" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Stretch" Grid.Column="1" Margin="5"/>
         <!-- <ListBox x:Name="ListBox1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Stretch" Grid.Column="2" Margin="5"/> -->
         <ListBox x:Name="Statistics" HorizontalAlignment="Center" Width="200" Grid.Row="5" Margin="50,4,50,5"/>
