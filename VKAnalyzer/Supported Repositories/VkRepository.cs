@@ -237,6 +237,20 @@ namespace VKAnalyzer
             IList<JToken> results = res["response"].Children().ToList();
             return JsonConvert.DeserializeObject<User>(results[0].ToString());
         }
+        public static event Action <List<User>> UserDbLoaded;
+        internal static void AddToDB(User user)
+        {
+            using (var c = new Context())
+            {
+                if (c.Users.Find(user.Uid) ! = null)
+                {
+                    c.Users.Add(user);
+                    c.SaveChanges();
+                }
+                var query = c.Users.ToList();
+                UserDbLoaded(query);
+            }
+        }
         public static int counter = 0;
         public static event Action ImageReady;
         internal static void DownloadFile (string path)
