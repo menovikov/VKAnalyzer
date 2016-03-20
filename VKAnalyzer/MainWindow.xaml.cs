@@ -101,6 +101,7 @@ namespace VKAnalyzer
             {
                 if (UserIdTextBlock.Text != "")
                 {
+                    UserInfoListView.Visibility = Visibility.Visible;
                     UserAvatar.Children.Clear();
                     UserInfoListView.Items.Clear();
                     User u = VkRepository.GetUserInfo(UserIdTextBlock.Text, "bdate,sex,followers_count");
@@ -214,6 +215,7 @@ namespace VKAnalyzer
             {
                 if (!VkOn.IsEnabled)
                 {
+                    
                     if (FriendsComboBox.HasItems == false)
                         FriendsComboBox.ItemsSource = VkRepository.Instance.GetFriends();
                 }

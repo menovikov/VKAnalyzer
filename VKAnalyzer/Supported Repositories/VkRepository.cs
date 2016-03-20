@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using VKAnalyzer.DTO;
 using System.Windows;
+using System.Runtime.Serialization.Json;
 
 
 namespace VKAnalyzer
@@ -296,6 +297,20 @@ namespace VKAnalyzer
                         ImageReady();
                     };
             }
+        }
+
+        public string[] GetGroups(MemoryStream stream)
+        {
+            var t = Task.Factory.StartNew(() =>
+            {
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(string[]));
+                string[] searchResults = null;
+                stream.Position = 0;
+                StreamReader sr = new StreamReader(stream);
+                searchResults = (string[])ser.ReadObject(stream);
+                return searchResults;
+            });
+            return t.Result;
         }
 
         

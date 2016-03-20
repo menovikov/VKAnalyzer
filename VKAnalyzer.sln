@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKAnalyzer", "VKAnalyzer\VKAnalyzer.csproj", "{49F99530-4297-43EC-BAB3-8E797457DE40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKAnalyzerTests", "VKAnalyzerTests\VKAnalyzerTests.csproj", "{573F12AC-A188-4118-B193-E5D47B19C0A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{49F99530-4297-43EC-BAB3-8E797457DE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49F99530-4297-43EC-BAB3-8E797457DE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49F99530-4297-43EC-BAB3-8E797457DE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{573F12AC-A188-4118-B193-E5D47B19C0A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{573F12AC-A188-4118-B193-E5D47B19C0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{573F12AC-A188-4118-B193-E5D47B19C0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{573F12AC-A188-4118-B193-E5D47B19C0A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

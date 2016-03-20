@@ -6,8 +6,8 @@
         xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls"
         
-        Title="MainWindow" Height="625.56" Width="777.239">
-    
+        Title="MainWindow" Height="625.56" Width="777.239" ResizeMode="NoResize">
+
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -30,7 +30,7 @@
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="VK Analyzer" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="LightCoral" Margin="65,0" Width="170"/>
         <ListBox x:Name="ListBox" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Stretch" Grid.Column="1" Margin="5"/>
-       <!-- <ListBox x:Name="ListBox1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Stretch" Grid.Column="2" Margin="5"/> -->
+        <!-- <ListBox x:Name="ListBox1" Grid.Row="1" Grid.RowSpan="5" HorizontalAlignment="Stretch" Grid.Column="2" Margin="5"/> -->
         <ListBox x:Name="Statistics" HorizontalAlignment="Center" Width="200" Grid.Row="5" Margin="50,4,50,5"/>
         <Image Source="Files/profile.png" Grid.Column="2" Width="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,5,0" Height="20"/>
         <Button Name="Login" Grid.Column="2" VerticalAlignment="Top" Width="40" Height="20" Content="Sign in" HorizontalAlignment="Right" Margin="0,5,36,0" RenderTransformOrigin="-1.475,0.425" Click="Login_Click"/>
@@ -51,17 +51,17 @@
             <Image Source="Files/fb.jpg"/>
         </Button>
         <StackPanel Name="UserAvatar"  Grid.Row="3" Margin="0,0,0,51" Visibility="Visible" Width="200" Height="200"/>
-        <ListView Name="UserInfoListView" HorizontalAlignment="Center" VerticalAlignment="Top"  Grid.Row="4" Grid.RowSpan="2"  Width="200" Margin="5">
+        <ListView Name="UserInfoListView" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden" Grid.Row="4" Grid.RowSpan="2"  Width="200" Margin="5">
         </ListView>
 
-        <chartingToolkit:Chart Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Name="mcChart" Title="Interests statistics">
+        <chartingToolkit:Chart Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" Name="mcChart" Title="Interests statistics" Margin="0,5,0,104">
             <chartingToolkit:Chart.Series>
                 <chartingToolkit:PieSeries Title="Experience" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True">
                 </chartingToolkit:PieSeries>
             </chartingToolkit:Chart.Series>
         </chartingToolkit:Chart>
 
-        <chartingToolkit:Chart Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Name="mcChart1" Title="Program statistics">
+        <chartingToolkit:Chart Grid.Row="3" Grid.RowSpan="3" Grid.Column="2" Name="mcChart1" Title="Program statistics" Margin="0,143,0,5">
             <chartingToolkit:Chart.Series>
                 <chartingToolkit:PieSeries Title="Experience" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" IsSelectionEnabled="True">
                 </chartingToolkit:PieSeries>
