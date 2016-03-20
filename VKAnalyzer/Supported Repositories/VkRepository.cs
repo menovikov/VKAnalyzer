@@ -42,6 +42,7 @@ namespace VKAnalyzer
         public string RequestedUserID { get; set; }
         public bool SignedIn { get; set; }
 
+        public static event Action<string> ExceptionOn;
 
         public List<string> GetGroups()
         {
@@ -50,9 +51,15 @@ namespace VKAnalyzer
                     var searchResults = new List<string>();
                     var jsonString = "";
                     var webClient = new WebClient();
-
-                    jsonString = webClient.DownloadString(string.Format("https://api.vk.com/method/{0}?user_id={1}&access_token={2}", "groups.get", VkRepository.Instance.RequestedUserID, VkRepository.Instance.AccessToken));
-
+                    try
+                    {
+                        jsonString = webClient.DownloadString(string.Format("https://api.vk.com/method/{0}?user_id={1}&access_token={2}", "groups.get", VkRepository.Instance.RequestedUserID, VkRepository.Instance.AccessToken));
+                    }
+                    catch(Exception ex)
+                    {
+                        if(ExceptionOn != null)
+                          ExceptionOn(ex.Message);
+                    }
                     JObject res = JObject.Parse(jsonString);
                     IList<JToken> results = res["response"].Children().ToList(); // get JSON result objects into a list
 
@@ -71,7 +78,16 @@ namespace VKAnalyzer
         {
             var t = Task.Factory.StartNew(() =>
                 {
-                    string[] topics = File.ReadAllLines("../../Files/RESULT(formated_urls)T.csv");
+                    string[] topics = null;
+                    try
+                    {
+                        topics = File.ReadAllLines("../../Files/RESULT(formated_urls)T.csv");
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ExceptionOn != null)
+                            ExceptionOn(ex.Message);
+                    }
                     List<Dictionary<string, string>> themes = new List<Dictionary<string, string>>();
                     foreach (var topic in topics)
                     {
@@ -94,7 +110,16 @@ namespace VKAnalyzer
             var t = Task.Factory.StartNew(() =>
                 {
                     var webcl = new WebClient();
-                    string jsonString = Encoding.UTF8.GetString(webcl.DownloadData(string.Format("https://api.vk.com/method/friends.get?user_id={0}&fields=nickname&order=name", VkRepository.Instance.LoggedInUserID)));
+                    string jsonString = "";
+                    try
+                    {
+                        jsonString = Encoding.UTF8.GetString(webcl.DownloadData(string.Format("https://api.vk.com/method/friends.get?user_id={0}&fields=nickname&order=name", VkRepository.Instance.LoggedInUserID)));
+                    }
+                    catch(Exception ex)
+                    {
+                        if (ExceptionOn != null)
+                            ExceptionOn(ex.Message);
+                    }
                     JObject res = JObject.Parse(jsonString);
                     IList<JToken> results = res["response"].Children().ToList();
                     List<User> searchResults = new List<User>();
@@ -177,7 +202,7 @@ namespace VKAnalyzer
                     }
 
                     if (counter != 0)
-                        out_list.Add(new KeyValuePair<string,int>(e_name, counter));
+                        out_list.Add(new KeyValuePair<string, int>(e_name, counter));
                 }
 
                 return out_list;
@@ -257,45 +282,79 @@ namespace VKAnalyzer
         internal static User GetUserInfo(string c)
         {
             WebClient web = new WebClient();
-            string jsonString = Encoding.UTF8.GetString(web.DownloadData(string.Format("https://api.vk.com/method/users.get?user_ids={0}", c)));
-            JObject res = JObject.Parse(jsonString);
-            IList<JToken> results = res["response"].Children().ToList(); 
-            return JsonConvert.DeserializeObject<User>(results[0].ToString());
-        }
-        internal static User GetUserInfo(string c, string fields)
-        {
-            WebClient web = new WebClient();
-            string jsonString = Encoding.UTF8.GetString(web.DownloadData(string.Format("https://api.vk.com/method/users.get?user_ids={0}&fields={1}", c, fields)));
+            string jsonString = "";
+            try
+            {
+                jsonString = Encoding.UTF8.GetString(web.DownloadData(string.Format("https://api.vk.com/method/users.get?user_ids={0}", c)));
+            }
+            catch(Exception ex)
+            {
+                if (ExceptionOn != null)
+                    ExceptionOn(ex.Message);
+            }
             JObject res = JObject.Parse(jsonString);
             IList<JToken> results = res["response"].Children().ToList();
             return JsonConvert.DeserializeObject<User>(results[0].ToString());
         }
-        public static event Action <List<User>> UserDbLoaded;
+        internal static User GetUserInfo(string c, string fields)
+        {
+            string jsonString = "";
+            try
+            {
+                WebClient web = new WebClient();
+                jsonString = Encoding.UTF8.GetString(web.DownloadData(string.Format("https://api.vk.com/method/users.get?user_ids={0}&fields={1}", c, fields)));
+            }
+            catch (Exception ex)
+            {
+                if (ExceptionOn != null)
+                    ExceptionOn(ex.Message);
+            }
+            JObject res = JObject.Parse(jsonString);
+            IList<JToken> results = res["response"].Children().ToList();
+            return JsonConvert.DeserializeObject<User>(results[0].ToString());
+        }
+        public static event Action<List<User>> UserDbLoaded;
         internal static void AddToDB(User user)
         {
             using (var c = new Context())
             {
-                if (c.Users.Find(user.Uid) != null)
+                try
                 {
-                    c.Users.Add(user);
-                    c.SaveChanges();
+                    if (c.Users.Find(user.Uid) == null)
+                    {
+                        c.Users.Add(user);
+                        c.SaveChanges();
+                    }
+                    var query = c.Users.ToList();
+                    UserDbLoaded(query);
                 }
-                var query = c.Users.ToList();
-                UserDbLoaded(query);
+                catch (Exception ex)
+                {
+                    if (ExceptionOn != null)
+                        ExceptionOn(ex.Message);
+                }
             }
         }
         public static int counter = 0;
         public static event Action ImageReady;
-        internal static void DownloadFile (string path)
+        internal static void DownloadFile(string path)
         {
             counter += 1;
             using (var web = new WebClient())
             {
-                web.DownloadFileAsync(new Uri(path), string.Format("{0}avatar.jpg", counter.ToString()));
-                web.DownloadFileCompleted += (sender, e) =>
-                    {
-                        ImageReady();
-                    };
+                try
+                {
+                    web.DownloadFileAsync(new Uri(path), string.Format("{0}avatar.jpg", counter.ToString()));
+                    web.DownloadFileCompleted += (sender, e) =>
+                        {
+                            ImageReady();
+                        };
+                }
+                catch (Exception ex)
+                {
+                    if (ExceptionOn != null)
+                        ExceptionOn(ex.Message);
+                }
             }
         }
 
@@ -303,8 +362,10 @@ namespace VKAnalyzer
         {
             var t = Task.Factory.StartNew(() =>
             {
+
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(string[]));
                 string[] searchResults = null;
+
                 stream.Position = 0;
                 StreamReader sr = new StreamReader(stream);
                 searchResults = (string[])ser.ReadObject(stream);
@@ -313,6 +374,6 @@ namespace VKAnalyzer
             return t.Result;
         }
 
-        
+
     }
 }
