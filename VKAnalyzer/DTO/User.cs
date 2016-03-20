@@ -9,7 +9,7 @@ namespace VKAnalyzer.DTO
 {
     public class User
     {
-        
+        [Key]
         [JsonProperty("uid")] 
         public string Uid { get; set; }
 
@@ -41,13 +41,7 @@ namespace VKAnalyzer.DTO
                     _gender = "F";
             }
         }
-        private int myVar;
-
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; }
-        }
+    
         
        
         
