@@ -41,13 +41,7 @@ namespace VKAnalyzer.DTO
                     _gender = "F";
             }
         }
-        private int myVar;
-
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; }
-        }
+    
         
        
         
