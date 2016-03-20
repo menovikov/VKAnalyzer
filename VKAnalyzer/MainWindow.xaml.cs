@@ -86,9 +86,9 @@ namespace VKAnalyzer
                     VkRepository.exclam = 0;
                     //
                     VkRepository.Instance.RequestedUserID = UserIdTextBlock.Text;
-                    ListBox.ItemsSource = r1.Compare_groups();
+                    //ListBox.ItemsSource = r1.Compare_groups();
                     ListBox.ItemsSource = VkRepository.Instance.Compare_groups();
-                    ListBox1.ItemsSource = VkRepository.Instance.UG_info();
+                    VkRepository.Instance.UG_info();
 
                     // statistics below
                     Statistics.Items.Clear();
@@ -105,23 +105,24 @@ namespace VKAnalyzer
                         ProgressBar.Background = new SolidColorBrush(Colors.Red);
                     else
                         ProgressBar.Background = new SolidColorBrush(Colors.Green);
-
-                    // Pie chart
-                    points.Clear();
-                    //points.Add(new Point("", error_percent));
-                    //points.Add(new Point(2, match_percent1));
-                    //points.Add(new Point(3, match_percent));
-                    //PieSeries.ItemsSource = points;
-                    //PieSeries.LegendItems.Clear();
-                    //PieSeries.LegendItems.Add("match");
-                    //PieSeries.LegendItems.Add("small");
-                    //PieSeries.LegendItems.Add("mismatch");
-
-                    ((PieSeries)mcChart.Series[0]).ItemsSource =
+                    
+                    // Pie chart 1
+                    
+                    ((PieSeries)mcChart1.Series[0]).ItemsSource =
                         new KeyValuePair<string, double>[]{
-                        new KeyValuePair<string,double>("Match", error_percent),
+                        new KeyValuePair<string,double>("Match", match_percent),
                         new KeyValuePair<string,double>("Small", match_percent1),
-                        new KeyValuePair<string,double>("Mismatch", match_percent)};
+                        new KeyValuePair<string,double>("Mismatch", error_percent)};
+
+                    // Pie chart 2
+                    var grSourse = new List<KeyValuePair<string, int>>();
+
+                    foreach (var elem in VkRepository.Instance.Compare_groups_stat())
+                        grSourse.Add(elem);
+
+                    grSourse.Sort(delegate(KeyValuePair<String, Int32> x, KeyValuePair<String, Int32> y) { return y.Value.CompareTo(x.Value); });
+
+                    ((PieSeries)mcChart.Series[0]).ItemsSource = grSourse;
 
                 }
                 else

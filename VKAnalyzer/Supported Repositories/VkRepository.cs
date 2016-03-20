@@ -149,6 +149,41 @@ namespace VKAnalyzer
             return t.Result;
         }
 
+        public List<KeyValuePair<string, int>> Compare_groups_stat()
+        {
+            var t = Task.Factory.StartNew(() =>
+            {
+                var users_gr = VkRepository.Instance.GetGroups();
+                var given_gr = VkRepository.Instance.Grouped_groups();
+                var out_list = new List<KeyValuePair<string, int>>();
+                int total = 0;
+
+                foreach (Dictionary<string, string> topic in given_gr)
+                {
+                    int counter = 0;
+                    string e_name = "";
+
+                    foreach (var elem in topic)
+                    {
+                        foreach (var gr in users_gr)
+                            if (elem.Key == gr)
+                            {
+                                counter = counter + 1;
+                                total++;
+                                is_in_file.Add(gr);
+                            }
+                        e_name = elem.Value;
+                    }
+
+                    if (counter != 0)
+                        out_list.Add(new KeyValuePair<string,int>(e_name, counter));
+                }
+
+                return out_list;
+            });
+            return t.Result;
+        }
+
         public static double total = 0;
         public static double pluses = 0;
         public static double exclam = 0; // "big" groups, that are not in DATA file
@@ -216,9 +251,6 @@ namespace VKAnalyzer
                 });
             return t.Result;
         }
-
-
-
 
 
         internal static User GetUserInfo(string c)
