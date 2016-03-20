@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,11 +21,8 @@ using VKAnalyzer.DTO;
 
 namespace VKAnalyzer
 {
-    class Context :DbContext
-    {
-        public DbSet<User> Users {get; set; }
-    }
-    }/// <summary>
+   
+    /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
@@ -39,6 +37,7 @@ namespace VKAnalyzer
         public MainWindow()
         {
             InitializeComponent();
+            Window w = new DBItems();
             VkRepository.ImageReady += () => 
             {
                 UserAvatar.Children.Clear();
@@ -57,6 +56,10 @@ namespace VKAnalyzer
                 {
                     AuthInfo.Text = VkRepository.GetUserInfo(c).ToString();
                 };
+            VkRepository.UserDbLoaded += (users) =>
+            {
+                w.Show();
+            };
         }
 
         private void Auth()
@@ -67,7 +70,7 @@ namespace VKAnalyzer
 
         // Pie chart
         ObservableCollection<Point> points = new ObservableCollection<Point>();
-        private void AddUserToDB_Click(object sender, RoutedEventARgs e)
+        private void AddUserToDB_Click(object sender, RoutedEventArgs e)
         {
             if (r1.SignedIn == true)
             { 
@@ -76,7 +79,7 @@ namespace VKAnalyzer
                     try
                     {
                         User u = (User)FriendsComboBox.SelectedItem;
-                        if (u.Followers ! = "")
+                        if (u.Followers != "")
                         VkRepository.AddToDB(u);
                         else
                         MessageBox.Show("You didn't get users data");
@@ -91,7 +94,7 @@ namespace VKAnalyzer
             MessageBox.Show("You didn't sign in");
             }
             
-        privatevoid CompareGroupsButton_Click(object sender, RoutedEventArgs e)
+        private void CompareGroupsButton_Click(object sender, RoutedEventArgs e)
         {
 
             if (!VkOn.IsEnabled && r1.SignedIn == true)
@@ -160,7 +163,6 @@ namespace VKAnalyzer
         }
 
 
-        private event Action Ev;
         private void FriendsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!VkOn.IsEnabled)

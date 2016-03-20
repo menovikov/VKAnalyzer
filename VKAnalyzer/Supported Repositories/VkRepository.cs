@@ -274,7 +274,7 @@ namespace VKAnalyzer
         {
             using (var c = new Context())
             {
-                if (c.Users.Find(user.Uid) ! = null)
+                if (c.Users.Find(user.Uid) != null)
                 {
                     c.Users.Add(user);
                     c.SaveChanges();

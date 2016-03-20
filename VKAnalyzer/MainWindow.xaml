@@ -25,7 +25,7 @@
         <Button Name="OpenIdBtn" Grid.Row="1"  Content="Find user by id" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,5,0,0" Click="OpenIdBtn_Click" />
         <Button Name="OpenFriendsBtn" Grid.Row="1" Content="Find user from My Friends" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,30,0,0" Click="OpenFriendsBtn_Click"/>
         <Button Name="DownloadProfilePhoto" Content="Download profile photo" Grid.Row="1" Click="DownloadProfilePhoto_Click" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,55,0,0"/>
-       <Button Name="AddUserToDB" Content="Add user to database" Grid.Row="1" Click="AddUserToDB_Click" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,55,0,0"/>
+        <Button Name="AddUserToDB" Content="Add user to database" Grid.Row="1" Click="AddUserToDB_Click" Height="20" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,79,0,0"/>
         <TabPanel></TabPanel>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="VK Analyzer" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" Foreground="LightCoral" Margin="65,0" Width="170"/>
